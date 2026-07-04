@@ -1,4 +1,4 @@
-```python id="main1"
+
 import sys
 from urllib.parse import urlparse
 
@@ -136,4 +136,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
+
