@@ -5,7 +5,7 @@ from core.logger import info
 from core.storage import save
 
 from modules import subdomains
-from modules import dnsx
+from modules.dns import dnsx
 from modules import http_probe
 from modules.urls import gau
 from modules import katana
