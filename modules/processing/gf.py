@@ -1,13 +1,50 @@
 from core.runner import run
 
 
-def execute(urls, pattern="xss"):
+def execute(urls, patterns=None):
     """
-    Filter URLs using gf patterns (xss, sqli, ssrf, etc.)
+    Filter URLs using multiple gf patterns (xss, sqli, ssrf, redirect, etc.)
+    Returns results grouped by pattern.
     """
 
-    input_data = "\n".join(urls)
+    if not urls:
+        return {}
 
-    command = f"echo '{input_data}' | gf {pattern}"
+    if patterns is None:
+        patterns = ["xss"]
 
-    return run(command)
+    # deduplicate input
+    seen = set()
+    cleaned = []
+
+    for u in urls:
+        u = u.strip()
+        if not u:
+            continue
+        if u in seen:
+            continue
+        seen.add(u)
+        cleaned.append(u)
+
+    input_data = "\n".join(cleaned)
+
+    results = {}
+
+    for pattern in patterns:
+        command = f"printf '%s\n' \"{input_data}\" | gf {pattern}"
+        output = run(command)
+
+        # clean + dedupe output per pattern
+        seen_p = set()
+        filtered = []
+
+        for item in output:
+            item = item.strip()
+            if not item or item in seen_p:
+                continue
+            seen_p.add(item)
+            filtered.append(item)
+
+        results[pattern] = filtered
+
+    return results
