@@ -8,7 +8,7 @@ def execute(domains):
 
     command = (
         f"echo '{hosts}' | "
-        f"httpx -silent"
+        f"~/go/bin/httpx -silent"
     )
 
 
