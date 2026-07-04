@@ -8,7 +8,7 @@ def execute(domains):
 
     command = (
         f"echo '{hosts}' | "
-        f"~/go/bin/httpx -silent"
+        f"/home/kali/tools/go/bin/httpx -silent"
     )
 
 

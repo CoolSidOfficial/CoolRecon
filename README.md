@@ -1,177 +1,199 @@
+```markdown
 # CoolRecon
 
-<p align="center">
-  Modular Python-based reconnaissance framework for automated attack surface discovery.
-</p>
+Modular Python-based reconnaissance framework for automated attack surface discovery.
 
-## About
+---
 
-CoolRecon is a modular reconnaissance framework designed to automate the process of discovering and organizing target assets.
+## 🧠 About
 
-The goal of CoolRecon is to provide a clean, extensible framework that combines different reconnaissance tools into structured workflows while keeping results separated and organized.
+CoolRecon is a modular reconnaissance framework designed to automate the process of discovering, validating, and organizing target assets during security reconnaissance.
 
-## Features
+It combines multiple open-source tools into a structured and extensible pipeline while keeping outputs cleanly separated for analysis.
 
-Current:
+---
 
-* Subdomain enumeration
-* Modular architecture
-* Tool execution engine
-* Organized output storage
-* Clean logging system
+## 🎯 Purpose
 
-Planned:
+The purpose of CoolRecon is to:
 
-* DNS reconnaissance
-* Live host detection
-* Port scanning
-* URL discovery
-* JavaScript analysis
-* Parameter discovery
-* Content discovery
-* Vulnerability scanning integration
-* Reporting system
+- Automate attack surface discovery for bug bounty and security research
+- Combine multiple reconnaissance tools into a single workflow
+- Standardize output from different tools into structured datasets
+- Reduce manual effort in recon by chaining discovery → validation → crawling
+- Provide a modular base for building advanced recon automation systems
 
-## Project Structure
+It is designed for **learning, research, and authorized security testing only**.
 
-```text
+---
+
+## ⚙️ Features
+
+### Current:
+- Subdomain enumeration
+- DNS validation
+- HTTP probing
+- Modular architecture
+- Tool execution engine
+- Organized output storage
+- Clean logging system
+
+### Planned:
+- Port scanning
+- URL discovery (gau + katana)
+- JavaScript analysis
+- Parameter extraction
+- Content discovery
+- Vulnerability scanning integration
+- Reporting system
+
+---
+
+## 📁 Project Structure
+
+```
+
 CoolRecon/
 
 ├── main.py
-
 ├── core/
 │   ├── runner.py
 │   ├── logger.py
-│   └── storage.py
-
+│   ├── storage.py
+│   └── merge.py
+│
 ├── modules/
-│   └── subdomains.py
-
+│   ├── subdomains.py
+│   ├── http_probe.py
+│   ├── dnsx.py
+│   ├── passive/
+│   │   └── subfinder.py
+│   └── urls/
+│       ├── gau.py
+│       └── katana.py
+│
 ├── output/
-
 ├── requirements.txt
-
 └── README.md
+
 ```
 
-## How It Works
+---
+
+## 🔄 How It Works
 
 CoolRecon follows a modular pipeline:
 
 ```
+
 Target Domain
-      |
-      v
-Recon Module
-      |
-      v
-Tool Execution
-      |
-      v
-Result Processing
-      |
-      v
+│
+▼
+Subdomain Enumeration
+│
+▼
+DNS Validation
+│
+▼
+HTTP Probing
+│
+▼
+URL Discovery (GAU + Katana)
+│
+▼
+Result Merging
+│
+▼
 Output Storage
-```
-
-Example:
 
 ```
+
+---
+
+## 🚀 Example Output Flow
+
+```
+
 example.com
+│
+├── subdomains/
+│   └── merged.txt
+│
+├── dns/
+│   └── resolved.txt
+│
+├── http/
+│   └── alive.txt
+│
+└── urls/
+├── gau.txt
+├── katana.txt
+└── merged.txt
 
-        |
-        v
+````
 
-subfinder
+---
 
-        |
-        v
-
-output/example.com/subdomains.txt
-```
-
-## Installation
-
-Clone the repository:
+## 📦 Installation
 
 ```bash
 git clone <repository-url>
-
 cd CoolRecon
-```
-
-Install dependencies:
-
-```bash
 pip install -r requirements.txt
-```
+````
 
-Make sure required reconnaissance tools are installed and available in your PATH.
+Make sure required tools are installed:
 
-Example:
+* subfinder
+* dnsx
+* httpx
+* gau
+* katana
 
-```bash
-subfinder -h
-```
+---
 
-## Usage
-
-Run:
+## ▶️ Usage
 
 ```bash
 python3 main.py target.com
 ```
 
-Example output:
+Example:
 
 ```
 [+] CoolRecon started: target.com
-[+] Subdomains found: 25
+[+] Subdomains found: 161
+[+] Resolved: 41
+[+] Live hosts found: 18
+[+] Completed
 ```
 
-Results:
+---
 
-```
-output/
-
-└── target.com/
-
-    └── subdomains.txt
-```
-
-## Architecture
+## 🏗️ Architecture
 
 CoolRecon separates responsibilities:
 
 ### Core
 
-Handles framework functionality:
-
 * Command execution
 * Logging
 * File storage
+* Result merging
 
 ### Modules
 
-Each reconnaissance technique is an independent module.
+Each recon technique is independent:
 
-Example:
+* subdomains
+* dns
+* http
+* urls
+* ports (planned)
 
-```
-modules/
+---
 
-subdomains.py
-
-http.py
-
-ports.py
-
-urls.py
-```
-
-This allows new capabilities to be added without modifying the core engine.
-
-## Development Roadmap
+## 🗺️ Development Roadmap
 
 ### v0.1
 
@@ -181,29 +203,39 @@ This allows new capabilities to be added without modifying the core engine.
 
 ### v0.2
 
+* DNS resolution
 * HTTP probing
-* DNS intelligence
-* Port scanning
+* Basic URL discovery
 
 ### v0.3
 
-* URL discovery
-* JavaScript analysis
+* JS analysis
 * Parameter extraction
+* Crawling improvements
 
 ### v1.0
 
-* Complete reconnaissance workflow
-* Reporting
-* Advanced automation
+* Full recon pipeline
+* Reporting system
+* Automation engine
 
-## Disclaimer
+---
 
-CoolRecon is intended for authorized security testing, research, and learning purposes only.
+## ⚠️ Disclaimer
 
-Always ensure you have permission before performing reconnaissance against any target.
+CoolRecon is intended for:
 
-## License
+* Security research
+* Bug bounty programs
+* Authorized penetration testing
+
+Do not use it against systems without explicit permission.
+
+---
+
+## 📜 License
 
 MIT License
 
+```
+```
