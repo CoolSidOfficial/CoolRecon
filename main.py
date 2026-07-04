@@ -8,7 +8,7 @@ from modules import subdomains
 from modules.dns import dnsx
 from modules import http_probe
 from modules.urls import gau
-from modules import katana
+from modules.urls import katana
 from core.merge import merge
 
 
