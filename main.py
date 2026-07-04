@@ -8,6 +8,7 @@ from core.merge import merge
 
 # Subdomains
 from modules import subdomains
+
 from modules.passive import assetfinder, github, crtsh
 
 # DNS
@@ -21,7 +22,7 @@ from modules.urls import gau, katana, wayback
 
 # Processing
 from modules.processing import uro, unfurl
-
+from modules.processing import gf
 # JS
 from modules.js import subjs, linkfinder
 
@@ -105,6 +106,14 @@ def main():
 
     save(domain, "processing", "clean_urls.txt", clean_urls)
     save(domain, "processing", "params.txt", params)
+    gf_results = gf.execute(
+    clean_urls,
+    patterns=["xss", "sqli", "ssrf", "redirect"]
+)   
+    save(domain, "gf", "xss.txt", gf_results["xss"])
+    save(domain, "gf", "sqli.txt", gf_results["sqli"])
+    save(domain, "gf", "ssrf.txt", gf_results["ssrf"])
+    save(domain, "gf", "redirect.txt", gf_results["redirect"])
 
     # ----------------------------
     # 6. JS EXTRACTION
