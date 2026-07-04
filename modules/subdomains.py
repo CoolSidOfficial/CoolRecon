@@ -1,18 +1,22 @@
-from core.runner import run
+from modules.passive import subfinder
+from core.merge import merge
 
 
 def execute(domain):
+    """
+    Execute all passive subdomain enumeration modules.
+    """
 
-    command = (
-        f"subfinder "
-        f"-d {domain} "
-        f"-silent"
-    )
+    subfinder_results = subfinder.execute(domain)
 
+    # Future modules
+    # amass_results = amass.execute(domain)
+    # github_results = github.execute(domain)
+    # crtsh_results = crtsh.execute(domain)
 
-    results = run(command)
-
-
-    return list(
-        set(results)
+    return merge(
+        subfinder_results,
+        # amass_results,
+        # github_results,
+        # crtsh_results,
     )

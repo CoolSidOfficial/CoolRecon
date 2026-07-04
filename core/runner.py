@@ -1,7 +1,10 @@
 import subprocess
 
 
-def execute(command):
+def run(command):
+    """
+    Execute a shell command and return its output as a list of lines.
+    """
 
     result = subprocess.run(
         command,
@@ -10,5 +13,8 @@ def execute(command):
         capture_output=True,
         text=True
     )
+
+    if result.returncode != 0:
+        return []
 
     return result.stdout.splitlines()

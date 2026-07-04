@@ -1,0 +1,10 @@
+```text
+# Python dependencies for CoolRecon
+
+# Currently no external Python packages are required.
+# CoolRecon uses only the Python standard library.
+
+# External tools (install separately):
+# - subfinder
+# - httpx
+```

@@ -1,27 +1,30 @@
+
 import os
 
 
-def save(domain, filename, data):
+def save(domain, folder, filename, data):
+    """
+    Save results to:
+    output/<domain>/<folder>/<filename>
+    """
 
-    path = f"output/{domain}"
+    path = os.path.join(
+        "output",
+        domain,
+        folder
+    )
 
     os.makedirs(
         path,
         exist_ok=True
     )
 
+    file_path = os.path.join(
+        path,
+        filename
+    )
 
-    file = f"{path}/{filename}.txt"
+    with open(file_path, "w") as file:
+        file.write("\n".join(data))
 
-
-    with open(
-        file,
-        "w"
-    ) as f:
-
-        f.write(
-            "\n".join(data)
-        )
-
-
-    return file
+    return file_path
